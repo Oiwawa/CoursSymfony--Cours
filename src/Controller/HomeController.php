@@ -10,44 +10,26 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Class HomeController
+ * Class CoursController
  * @package App\Controller
- * @Route(path="test/")
  */
 class HomeController extends AbstractController
 {
+
     /**
-     * @Route(path="contact", name="contact")
+     * @Route(path="", name="index", methods={"GET"})
      */
-    public function contact(Request $request)
-    {
-
-
-        dump($request->getClientIp());
-
-        $array= ["test", "test", "test"];
-        dump($array);
-
-        dump($request->get('name', 'inconnu'));
-
-        dump($request->get('parametre','valeur default'));
-        exit();
+    public function index(){
+        return $this->render('Home/index.html.twig');
     }
 
-    /**
-     * @Route(path="about", name="test", methods={"GET","POST"})
-     */
-    public function test(Request $request){
-
-        return new Response("<p>A propos de ! </p>");
-    }
 
     /**
-     * @Route(path="mentions", name="mentions")
+     * @Route(path="home", name="home", methods={"GET"})
      */
-    public function mentions(Request $request){
+    public function home(){
 
-        return $this->redirectToRoute('about');
+        return $this->redirectToRoute('index');
     }
 
 

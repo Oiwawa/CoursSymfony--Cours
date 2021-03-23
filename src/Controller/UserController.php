@@ -21,7 +21,7 @@ class UserController extends AbstractController
      */
     public function create() {
 
-        return $this->render('test.html.twig');
+        return $this->render('create.html.twig');
     }
     /**
      * @Route(path="login", name="login", methods={"GET","POST"})
