@@ -1,0 +1,23 @@
+{% extends "TP1/layout.html.twig" %}
+
+{% block titre %}
+    Contact
+{% endblock %}
+{% block menu %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="my-5 d-flex justify-content-center">
+                <h1>Contact</h1>
+            </div>
+            <div class="col-md-12 my-3 d-flex justify-content-center">
+                <ul class="nav nav-pills">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('index') }}">Accueil</a>
+                    </li>
+                    <a class="nav-link" href="{{ path('contact') }}">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}

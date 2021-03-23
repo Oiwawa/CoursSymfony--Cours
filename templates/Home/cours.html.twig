@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Accueil</title>
+</head>
+<body>
+<p>Page home</p>
+{# voici un commentaire en twig #}
+
+<p>J'affiche du text {{ 'variableDynamique' }} </p>
+<p>J'affiche la date {{ "now"|date('d/m/Y') }}</p>
+
+{# for 1 #}
+{# Une boucle entre {% %} #}
+<ul>
+    {% for i in 0..5 %}
+        {# {{ i }} pour afficher la variable #}
+        <li>  {{ i }}</li>
+    {% endfor %}
+    {# termine la boucle for #}
+</ul>
+
+<ul>
+    {# for 2 #}
+    {% set max = 5 %}
+    {% for i in 0..max %}
+        <li>  {{ i }}</li>
+    {% endfor %}
+</ul>
+
+{% if max > 12 %}
+    Max > 10
+{% elseif max > 10 %}
+    Max > 10
+{% else %}
+    Max < 10
+{% endif %}
+
+
+<ul>
+    {% for value in array %}
+        <li>
+            {{ value }}
+        </li>
+    {% endfor %}
+
+    {% for nbr in tableauNbr %}
+        {# {% if nbr is divisible by(2) %} #}
+        {% if nbr is odd %}
+            <h2 style="color: #dc3545"> {{ nbr }} </h2>
+        {% else %}
+            <h2 style="color: aqua"> {{ nbr }} </h2>
+        {% endif %}
+    {% endfor %}
+
+{# FILTRES   #}
+    {% for lettre in tableauLettre|reverse %}
+            <h2>{{ loop.index}} - {{ lettre|upper }} </h2>
+    {% endfor %}
+
+     {{ "now"|date("Y-m-d") }}
+
+    <?php htmlentities($myVar) ; ?>
+</ul>
+</body>
+</html>

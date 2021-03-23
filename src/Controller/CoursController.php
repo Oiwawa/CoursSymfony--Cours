@@ -12,10 +12,21 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class CoursController
  * @package App\Controller
- * @Route(path="test/")
  */
 class CoursController extends AbstractController
 {
+
+    /**
+     * @Route(path="", name="index", methods={"GET"})
+     */
+    public function index(){
+
+        $array = ["Valeur 1", "Valeur 2", "Valeur 3"];
+        $tableauNbr = range(0, 6);
+        $tableauLettre = range("a", "z");
+        return $this->render('cours.html.twig', compact('tableauNbr', 'array', 'tableauLettre'));
+    }
+
     /**
      * @Route(path="contact", name="contact")
      */
