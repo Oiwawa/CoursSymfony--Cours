@@ -4,6 +4,7 @@
     Contact
 {% endblock %}
 {% block menu %}
+
     <div class="container-fluid">
         <div class="row">
             <div class="my-5 d-flex justify-content-center">
@@ -12,9 +13,9 @@
             <div class="col-md-12 my-3 d-flex justify-content-center">
                 <ul class="nav nav-pills">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('index') }}">Accueil</a>
+                        <a class="nav-link" href="{{ url('TP1_index') }}">Accueil</a>
                     </li>
-                    <a class="nav-link" href="{{ path('contact') }}">Contact</a>
+                    <a class="nav-link" href="{{ url('TP1_contact') }}">Contact</a>
                     </li>
                 </ul>
             </div>

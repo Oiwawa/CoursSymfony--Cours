@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class MainController
  * @package App\Controller\TP1
- * @Route(path="TP1/")
+ * @Route(path="TP1_", name="TP1_")
  */
 class MainController extends AbstractController
 {

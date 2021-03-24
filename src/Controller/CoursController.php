@@ -24,7 +24,7 @@ class CoursController extends AbstractController
         $array = ["Valeur 1", "Valeur 2", "Valeur 3"];
         $tableauNbr = range(0, 6);
         $tableauLettre = range("a", "z");
-        return $this->render('cours.html.twig', compact('tableauNbr', 'array', 'tableauLettre'));
+        return $this->render('Home/index.html.twig', compact('tableauNbr', 'array', 'tableauLettre'));
     }
 
     /**
@@ -46,7 +46,7 @@ class CoursController extends AbstractController
     }
 
     /**
-     * @Route(path="about", name="test", methods={"GET","POST"})
+     * @Route(path="get", name="get", methods={"GET","POST"})
      */
     public function test(Request $request){
 
