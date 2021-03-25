@@ -42,10 +42,9 @@ class ProductController extends AbstractController
         if(!filter_var($infoUrlBoolean, FILTER_VALIDATE_BOOLEAN)){
             $infoUrlBoolean = false;
         }
-
         if(!$infoUrlBoolean){
-            throw $this->createAccessDeniedException("Accès refusé");
-           // throw $this->createNotFoundException("Message d'erreur");
+            //throw $this->createAccessDeniedException("Accès refusé");
+           throw $this->createNotFoundException("Message d'erreur");
         }
         $infos = ['Identifant' =>$infoUrlId,'Departement'=> $infoUrlDep,'Save'=> $infoUrlBoolean];
         return $this->render('produit.html.twig', ['infos' => $infos]);
