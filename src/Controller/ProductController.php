@@ -3,6 +3,7 @@
 
 namespace App\Controller;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -50,4 +51,9 @@ class ProductController extends AbstractController
         return $this->render('produit.html.twig', ['infos' => $infos]);
     }
 
+
+    public function test(EntityManagerInterface $entityManager){
+
+
+    }
 }

@@ -29,4 +29,12 @@
     </div>
 {% endblock %}
 
-{%  %}
+{% block main %}
+    <h1>Détail de l'idée {{ idea.id }}</h1>
+<ul>
+    <li> {{ idea.title|capitalize }}</li>
+    <li> {{ idea.description }}</li>
+    <li> {{ idea.author|capitalize }}</li>
+    <li> {{ idea.dateCreated |date("d/m/Y H:i:s") }}</li>
+</ul>
+{% endblock %}
