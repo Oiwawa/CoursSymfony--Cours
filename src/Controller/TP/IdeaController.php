@@ -6,8 +6,8 @@ namespace App\Controller\TP;
 
 
 use App\Entity\Idea;
+use App\Form\IdeaType;
 use Doctrine\ORM\EntityManagerInterface;
-use PhpParser\Node\Expr\Cast\Object_;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -45,5 +45,25 @@ class IdeaController extends AbstractController
 
 
         return $this->render('TP/idea/detail.html.twig', ['idea' => $idea]);
+    }
+
+    /**
+     * @param Request $request
+     * @param EntityManagerInterface $em
+     * @Route(path="ajouter", name="add")
+     */
+    public function add(Request $request, EntityManagerInterface $em): Response{
+        $idea = new Idea();
+        $form = $this->createForm(IdeaType::class, $idea);
+        $idea->setIsPublished(1);
+        $idea->setDateCreated(new \DateTime());
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $em->persist($idea);
+            $em->flush();
+            $this->addFlash('success','Idée ajoutée à la liste');
+            return $this->redirectToRoute('TP_detail',['id'=>$idea->getId()]);
+        }
+        return $this->render('TP/idea/ajout.html.twig', ['idea' => $idea, 'ideaForm'=>$form->createView()]);
     }
 }

@@ -4,10 +4,13 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Idea
  * @package App\Entity
+ * @UniqueEntity(fields={"title"}, message="Vous avez déjà une idée portant ce nom.")
  * @ORM\Entity(repositoryClass="App\Repository\TP\IdeaRepository")
  * @ORM\Table(name="Idea")
  */
@@ -21,6 +24,7 @@ class Idea
     private $id;
 
     /**
+     * @Assert\NotBlank(message="Veuillez donner un nom à votre idée!")
      * @ORM\Column(name="title", type="string", length=250)
      */
     private $title;
@@ -36,7 +40,7 @@ class Idea
     private $author;
 
     /**
-     * @ORM\Column(name="is_published", type="boolean")
+     * @ORM\Column(name="is_published", type="boolean", )
      */
     private $isPublished;
 

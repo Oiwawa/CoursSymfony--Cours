@@ -1,0 +1,13 @@
+.flash{
+    margin: 20px;
+    padding: 10px;
+    border-radius: 5px;
+
+}
+.flash-success{
+    background-color: green;
+}
+
+.flash-error{
+    background-color: red;
+}

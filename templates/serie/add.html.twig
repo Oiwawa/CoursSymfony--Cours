@@ -1,0 +1,18 @@
+{% extends 'TP/layout.html.twig' %}
+
+{% block main %}
+    <h1>Add a new serie</h1>
+    <div>
+        {{ form_start(serieFrom) }}
+        {{ form_widget(serieFrom) }}
+        <button type="submit">Add</button>
+        {{ form_end(serieFrom) }}
+    </div>
+    <a href="{{ url('serie_liste') }}">View list </a>
+
+{% endblock %}
+
+{% block title %}
+
+{% endblock %}
+
