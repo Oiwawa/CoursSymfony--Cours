@@ -1,0 +1,30 @@
+{% extends 'TP/layout.html.twig' %}
+
+{% block menu %}
+
+{% endblock %}
+
+{% block main %}
+    {% for serie in series %}
+
+        <div>
+            {% set nbS = serie.seasons.count %}
+            {{ serie.serieName }} ({{ nbS }} season{{ nbS>1?'s':'' }})
+            <form action="{{ path('serie_delete', {'id': serie.id}) }}">
+                <button type="submit">Delete</button>
+
+            </form>
+        </div>
+    {% endfor %}
+
+    {% if numPage > 1 %}
+        <a href="{{ url('serie_liste', {'numPage' :  numPage -1 }) }}">Previous</a>
+    {% endif %}
+
+    {% if numPage < nbPages %}
+        <a href="{{ url('serie_liste', {'numPage' :  numPage +1 }) }}">Next</a>
+    {% endif %}
+    <br>
+    <a href="{{ url('serie_add') }}">Add new </a>
+{% endblock %}
+

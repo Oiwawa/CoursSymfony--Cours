@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Serie;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -19,32 +20,20 @@ class SerieRepository extends ServiceEntityRepository
         parent::__construct($registry, Serie::class);
     }
 
-    // /**
-    //  * @return Serie[] Returns an array of Serie objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('s.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Serie
-    {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+    public function findWithSeasons($limit, $numPage){
+        $qb = $this->createQueryBuilder('ser')
+            ->join('ser.seasons','sea')
+            ->addSelect('sea')
+            ->setMaxResults($limit)
+            ->setFirstResult(($numPage-1) *10);
+        $query = $qb->getQuery();
+        return new Paginator($query);
     }
-    */
+
+    public function nbPages($nbLine){
+        $qb = $this->createQueryBuilder('ser');
+        $query = $qb->getQuery();
+        return ceil(count($query->getResult())/$nbLine);
+    }
 }

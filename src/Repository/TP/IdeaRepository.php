@@ -22,4 +22,13 @@ class IdeaRepository extends EntityRepository
     }
 
 
+    public function findWithCategory(){
+
+        $qb = $this->createQueryBuilder('idea')
+            ->join('idea.categorie','cat')
+            ->addSelect('cat.name');
+
+        $query = $qb->getQuery();
+        return $query->getResult();
+    }
 }

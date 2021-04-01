@@ -50,6 +50,13 @@ class Idea
     private $dateCreated;
 
     /**
+     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="idea")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $categorie;
+
+
+    /**
      * @return mixed
      */
     public function getId()
@@ -136,6 +143,21 @@ class Idea
     {
         $this->dateCreated = $dateCreated;
     }
+
+    public function getCategorie(): ?Category
+    {
+        return $this->categorie;
+    }
+
+    public function setCategorie(?Category $categorie): self
+    {
+        $this->categorie = $categorie;
+
+        return $this;
+    }
+
+
+
 
 
 }

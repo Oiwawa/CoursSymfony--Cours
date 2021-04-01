@@ -13,17 +13,24 @@ use Symfony\Component\Routing\Annotation\Route;
 class SerieController extends AbstractController
 {
     /**
-     * @Route("/serie", name="serie_liste")
+     * @Route("/serie/{numPage}", requirements={"numPage" :"\d+"}, name="serie_liste")
      */
-    public function index(): Response
+    public function index($numPage): Response
     {
     $serieRepo = $this->getDoctrine()->getRepository(Serie::class);
-    $series = $serieRepo->findAll();
-    return $this->render('list.html.twig', ['series' =>$series]);
+    $nbPages = $serieRepo->nbPages(10);
+    $series = $serieRepo->findWithSeasons(10, $numPage);
+    return $this->render('serie/list.html.twig', [
+        'series' =>$series,
+        'numPage'=>$numPage,
+        'nbPages' =>$nbPages,
+    ]);
 
     }
 
     /**
+     * @param Request $request
+     * @param EntityManagerInterface $em
      * @return Response
      * @Route(path="/serie/add/", name="serie_add")
      */
@@ -40,5 +47,19 @@ class SerieController extends AbstractController
             return $this->redirectToRoute('serie_liste');
         }
         return $this->render('serie/add.html.twig', ['serieFrom' => $form->createView()]);
+    }
+
+    /**
+     * @Route(path="/serie/delete/{id}", requirements={"id" :"\d+"}, name="serie_delete")
+     */
+    public function delete($id, EntityManagerInterface $em){
+        $repo = $em->getRepository(Serie::class);
+        $serie = $repo->find($id);
+        $em->remove($serie);
+        $em->flush();
+
+        $this->addFlash('success', 'The serie '.$serie->getSerieName().' has been deleted!');
+
+        return $this->redirectToRoute('serie_liste', ['numPage'=>1]);
     }
 }

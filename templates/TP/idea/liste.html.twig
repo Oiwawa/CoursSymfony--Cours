@@ -36,8 +36,9 @@
     <div class="col-md-12 my-3 d-flex justify-content-center">
         <ul class="nav nav-pills">
                 {% for idea in ideas %}
+                    {% set category = idea.categorie %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('TP_detail', {"id":idea.id}) }}">{{idea.title}}</a>
+                        <a class="nav-link" href="{{ url('TP_detail', {"id":idea.id}) }}">{{idea.title}} ({{ category }})</a>
                     </li>
                 {% endfor %}
         </ul>

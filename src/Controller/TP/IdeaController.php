@@ -24,17 +24,24 @@ class IdeaController extends AbstractController
      * @Route(path="liste", name="liste", methods={"GET"})
      */
     public function liste(EntityManagerInterface $entityManager){
-
         $ideas = $entityManager->getRepository('App:Idea')->getAll(1);
 
-        return $this->render('TP/idea/liste.html.twig', ['ideas' => $ideas]);
+        $ideaRepo = $this->getDoctrine()->getRepository(Idea::class);
+
+        $category = $ideaRepo->findWithCategory();
+        return $this->render('TP/idea/liste.html.twig', [
+            'ideas' => $ideas,
+            'category'=>$category
+        ]);
     }
 
     /**
      * @Route(path="detail/{id}", name="detail", requirements={"id":"\d"}, methods={"GET"})
      * @param EntityManagerInterface $entityManager
+     * @return Response
      */
-    public function detail(Request $request, EntityManagerInterface $entityManager){
+    public function detail(Request $request, EntityManagerInterface $entityManager): Response
+    {
 
         //Recuperation de l'entité dans la BDD
         $idea = $entityManager->getRepository('App:Idea')->find($request->get('id'));
@@ -50,7 +57,8 @@ class IdeaController extends AbstractController
     /**
      * @param Request $request
      * @param EntityManagerInterface $em
-     * @Route(path="ajouter", name="add")
+     * @Route(path="new", name="add")
+     * @return Response
      */
     public function add(Request $request, EntityManagerInterface $em): Response{
         $idea = new Idea();
@@ -61,9 +69,9 @@ class IdeaController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){
             $em->persist($idea);
             $em->flush();
-            $this->addFlash('success','Idée ajoutée à la liste');
+            $this->addFlash('success','Your idea has been added!');
             return $this->redirectToRoute('TP_detail',['id'=>$idea->getId()]);
         }
-        return $this->render('TP/idea/ajout.html.twig', ['idea' => $idea, 'ideaForm'=>$form->createView()]);
+        return $this->render('TP/idea/add.html.twig', ['idea' => $idea, 'ideaForm'=>$form->createView()]);
     }
 }
